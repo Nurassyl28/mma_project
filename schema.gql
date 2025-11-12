@@ -1,0 +1,117 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateEventInput {
+  date: DateTime!
+  location: String!
+  name: String!
+}
+
+input CreateFightInput {
+  blueFighterId: String!
+  eventId: String!
+  redFighterId: String!
+  weightClass: WeightClass!
+}
+
+input CreateFighterInput {
+  country: String
+  firstName: String!
+  lastName: String!
+  nickname: String
+  slug: String!
+  weightClass: WeightClass!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Event {
+  date: DateTime!
+  fights: [Fight!]!
+  id: ID!
+  location: String!
+  name: String!
+}
+
+type Fight {
+  blueFighter: Fighter!
+  event: Event!
+  id: ID!
+  isFinalized: Boolean!
+  method: Method
+  redFighter: Fighter!
+  round: Int
+  time: String
+  weightClass: String!
+  winnerId: String
+}
+
+type Fighter {
+  country: String
+  firstName: String!
+  history: [Fight!]!
+  id: ID!
+  lastName: String!
+  nickname: String
+  slug: String!
+  weightClass: WeightClass!
+}
+
+enum Method {
+  DECISION
+  DRAW
+  KO_TKO
+  NC
+  SUBMISSION
+}
+
+type Mutation {
+  createEvent(input: CreateEventInput!): Event!
+  createFight(input: CreateFightInput!): Fight!
+  createFighter(input: CreateFighterInput!): Fighter!
+  reportFightResult(input: ReportResultInput!): Fight!
+}
+
+type Query {
+  events: [Event!]!
+  fighter(slug: String!): Fighter
+  fighters: [Fighter!]!
+  history(limit: Int): [Fight!]!
+  rankings(weightClass: String!): [Ranking!]!
+  upcomingEvents(limit: Int): [Event!]!
+}
+
+type Ranking {
+  draws: Int!
+  fighter: Fighter!
+  id: ID!
+  lastActivity: DateTime
+  losses: Int!
+  points: Int!
+  rank: Int!
+  weightClass: String!
+  wins: Int!
+}
+
+input ReportResultInput {
+  fightId: String!
+  method: Method!
+  round: Int!
+  time: String!
+  winnerId: String!
+}
+
+enum WeightClass {
+  BANTAMWEIGHT
+  FEATHERWEIGHT
+  FLYWEIGHT
+  HEAVYWEIGHT
+  LIGHTWEIGHT
+  LIGHT_HEAVYWEIGHT
+  MIDDLEWEIGHT
+  WELTERWEIGHT
+}
