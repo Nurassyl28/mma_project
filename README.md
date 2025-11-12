@@ -41,3 +41,13 @@ Set `DB_MODE=postgres` when targeting a real Postgres instance; the fallback `me
 - `DB_SYNCHRONIZE=true` lets TypeORM auto-create tables in dev; otherwise run migrations/schema manually.
 - Schema + indexes live in `db/schema.sql`; ERD lives in `docs/ERD.md`.
 - Generate new migrations with `npm run migration:gen`.
+
+# MMA Backend
+NestJS + TypeORM + GraphQL + PostgreSQL + Redis
+
+## Run locally
+docker-compose up -d
+npm install
+npx nest start --watch
+
+Open: http://localhost:3000/graphql
